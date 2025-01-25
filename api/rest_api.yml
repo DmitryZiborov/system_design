@@ -1,1 +1,45 @@
+openapi: 3.0.3
+info:
+  title: Vkontakte
+  version: 0.0.1
+servers:
+  - url: http://localhost:8080/api/v1
+paths:
+  /friends/{userId}:
+    get:
+      summary: return all of friends of the user
+      tags:
+      - User
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: UID of the current user
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successfull response with a list of friends
+          content: 
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Users"
 
+components:
+  schemas:
+    User:
+      type: object
+      required: 
+        - id
+        - name
+      properties:
+        id:
+          type: string
+          example: d9e7a184-5d5b-11ea-a62a-3499710062d0
+        name:
+          type: string
+          example: Ivan
+    Users:
+      type: array
+      items:
+        $ref: "#/components/schemas/User"
